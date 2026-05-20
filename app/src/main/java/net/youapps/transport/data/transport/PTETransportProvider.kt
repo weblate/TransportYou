@@ -1,11 +1,11 @@
 package net.youapps.transport.data.transport
 
-import de.schildbach.pte.NetworkProvider
 import de.schildbach.pte.dto.Line
 import de.schildbach.pte.dto.LocationType
 import de.schildbach.pte.dto.Position
 import de.schildbach.pte.dto.QueryTripsContext
 import de.schildbach.pte.dto.TripOptions
+import de.schildbach.pte.provider.NetworkProvider
 import net.youapps.transport.data.transport.model.Departure
 import net.youapps.transport.data.transport.model.DeparturesResponse
 import net.youapps.transport.data.transport.model.EstimatedDateTime
@@ -30,9 +30,28 @@ class PTETransportProvider(private val network: NetworkProvider) : TransportProv
             .map { it.toLocation() }
     }
 
+    private val allProducts = setOf(
+        de.schildbach.pte.dto.Product.HIGH_SPEED_TRAIN,
+        de.schildbach.pte.dto.Product.REGIONAL_TRAIN,
+        de.schildbach.pte.dto.Product.SUBURBAN_TRAIN,
+        de.schildbach.pte.dto.Product.TRAM,
+        de.schildbach.pte.dto.Product.SUBWAY,
+        de.schildbach.pte.dto.Product.BUS,
+        de.schildbach.pte.dto.Product.CABLECAR,
+        de.schildbach.pte.dto.Product.FERRY,
+        de.schildbach.pte.dto.Product.ON_DEMAND
+    )
+
     override suspend fun queryDepartures(location: Location, maxAmount: Int): DeparturesResponse {
         val stationDepartures = network
-            .queryDepartures(location.id, Date(), maxAmount, true)
+            .queryDepartures(
+                location.id,
+                Date(),
+                maxAmount,
+                NetworkProvider.EquivalentStationsMode.USE_META,
+                allProducts
+
+            )
             .stationDepartures
 
         val lines = stationDepartures
@@ -76,9 +95,9 @@ class PTETransportProvider(private val network: NetworkProvider) : TransportProv
         val destinationLocationType = LocationType.valueOf(destination.type.name)
 
         val response = if (nextPagePagination != null) {
-            network.queryMoreTrips(nextPagePagination as QueryTripsContext?, true)
+            network.queryMoreTrips(nextPagePagination as QueryTripsContext?, true, true)
         } else if (prevPagePagination != null) {
-            network.queryMoreTrips(prevPagePagination as QueryTripsContext?, false)
+            network.queryMoreTrips(prevPagePagination as QueryTripsContext?, false, true)
         } else {
             network.queryTrips(
                 de.schildbach.pte.dto.Location(originLocationType, origin.id), // start
@@ -93,8 +112,11 @@ class PTETransportProvider(private val network: NetworkProvider) : TransportProv
                     null,
                     null,
                     null,
+                    null,
+                    null,
                     null
-                ) // advanced trip options
+                ), // advanced trip options
+                true
             )
         }
         val trips = response.trips.orEmpty().map { trip ->
@@ -156,7 +178,7 @@ class PTETransportProvider(private val network: NetworkProvider) : TransportProv
         // behavior
         while (i < legs.size) {
             val leg = legs[i]
-            val nextLeg = legs.getOrNull(i+1)
+            val nextLeg = legs.getOrNull(i + 1)
 
             if (leg is TripLeg.Public && nextLeg is TripLeg.Public) {
                 legs.add(

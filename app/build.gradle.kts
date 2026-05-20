@@ -1,3 +1,5 @@
+import java.net.URI
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
@@ -55,8 +57,17 @@ android {
     }
 }
 
-dependencies {
+allprojects {
+    repositories {
+        google()
+        gradlePluginPortal()
+        mavenLocal()
+        mavenCentral()
+        maven { url = URI("https://jitpack.io") }
+    }
+}
 
+dependencies {
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)
@@ -65,7 +76,6 @@ dependencies {
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
-    implementation(libs.public.transport.enabler)
     implementation(libs.material.icons.extended)
     implementation(libs.androidx.datastore)
     implementation(libs.protobuf.javalite)
@@ -73,6 +83,7 @@ dependencies {
     implementation(libs.okhttp)
     implementation(libs.reorderable)
     implementation(libs.maplibre.compose)
+    implementation(project(":public-transport-enabler"))
 
     // Widgets
     implementation(libs.androidx.glance.appwidget)

@@ -14,16 +14,9 @@ pluginManagement {
     }
 }
 dependencyResolutionManagement {
-    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
-    repositories {
-        google()
-        gradlePluginPortal()
-        mavenLocal()
-        mavenCentral()
-        maven { url = URI("https://jitpack.io") }
-    }
+
 }
 
 rootProject.name = "Transport You"
 include(":app")
- 
+include(":public-transport-enabler")
