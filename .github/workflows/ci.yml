@@ -20,6 +20,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
       - uses: gradle/wrapper-validation-action@v2
 
       - name: Set up JDK 17
