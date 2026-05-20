@@ -1,5 +1,6 @@
 package net.youapps.transport.data.transport
 
+import android.util.Log
 import de.schildbach.pte.dto.Line
 import de.schildbach.pte.dto.LocationType
 import de.schildbach.pte.dto.Position
@@ -119,6 +120,7 @@ class PTETransportProvider(private val network: NetworkProvider) : TransportProv
                 true
             )
         }
+        Log.e("resp", response.trips.toString())
         val trips = response.trips.orEmpty().map { trip ->
             val legs = trip.legs.map { it.toTripLeg() }.toMutableList()
             fillWithAndFixTransferLegs(legs)

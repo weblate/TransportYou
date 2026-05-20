@@ -23,7 +23,7 @@ fun TransportNetworkRow(network: TransportNetwork, isSelected: Boolean, onClick:
             .clickable {
                 onClick.invoke()
             }
-            .padding(horizontal = 10.dp, vertical = 6.dp),
+            .padding(horizontal = 10.dp, vertical = 10.dp),
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically
     ) {

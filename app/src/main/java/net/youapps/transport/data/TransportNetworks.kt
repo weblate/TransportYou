@@ -45,7 +45,6 @@ import de.schildbach.pte.provider.hafas.VmtProvider
 import de.schildbach.pte.provider.hafas.ZvvProvider
 import de.schildbach.pte.provider.hafas.austria.VmobilProvider
 import de.schildbach.pte.provider.hafas.austria.VvtProvider
-import de.schildbach.pte.provider.other.DeutschlandTicketProvider
 import de.schildbach.pte.provider.other.VrsProvider
 import okhttp3.HttpUrl.Companion.toHttpUrlOrNull
 import kotlin.io.encoding.Base64
@@ -90,7 +89,7 @@ object TransportNetworks {
     val networks = arrayOf(
         TransportNetwork(
             id = NetworkId.DB,
-            name = "Deutsche Bahn",
+            name = "DB International",
             country = Country.Germany,
             continent = Continent.Europe,
             factory = {
@@ -99,30 +98,21 @@ object TransportNetworks {
         ),
         TransportNetwork(
             id = NetworkId.BVG,
-            name = "Berliner Verkehrsbetriebe",
+            name = "Berliner Verkehrsbetriebe (BVG)",
             country = Country.Germany,
             continent = Continent.Europe,
             factory = { BvgProvider("{\"aid\":\"1Rxs112shyHLatUX4fofnmdxK\",\"type\":\"AID\"}") }
         ),
         TransportNetwork(
             id = NetworkId.NVV,
-            name = "NVV/RMV (Hesse)",
+            name = "Hessen (NVV/RMV)",
             country = Country.Germany,
             continent = Continent.Europe,
             factory = { NvvProvider("{\"type\":\"AID\",\"aid\":\"Kt8eNOH7qjVeSxNA\"}") }
         ),
         TransportNetwork(
-            id = NetworkId.BVG,
-            name = "BVG",
-            country = Country.Germany,
-            continent = Continent.Europe,
-            factory = {
-                BvgProvider("{\"aid\":\"1Rxs112shyHLatUX4fofnmdxK\",\"type\":\"AID\"}")
-            }
-        ),
-        TransportNetwork(
             id = NetworkId.VBB,
-            name = "VBB",
+            name = "Verkehrsverbund Berlin-Brandenburg (VBB)",
             country = Country.Germany,
             continent = Continent.Europe,
             factory = {
@@ -138,7 +128,7 @@ object TransportNetworks {
         ),
         TransportNetwork(
             id = NetworkId.AVV_AUGSBURG,
-            name = "AVV Augsburg",
+            name = "Augsburger Verkehrs- und Tarifverbund (AVV)",
             country = Country.Germany,
             continent = Continent.Europe,
             factory = {
@@ -147,14 +137,14 @@ object TransportNetworks {
         ),
         TransportNetwork(
             id = NetworkId.MVV,
-            name = "MVV",
+            name = "Münchner Verkehrs- und Tarifverbund (MVV)",
             country = Country.Germany,
             continent = Continent.Europe,
             factory = { MvvProvider() }
         ),
         TransportNetwork(
             id = NetworkId.INVG,
-            name = "INVG",
+            name = "Ingolstädter Verkehrsgesellschaft (INVG)",
             country = Country.Germany,
             continent = Continent.Europe,
             factory = {
@@ -163,7 +153,7 @@ object TransportNetworks {
         ),
         TransportNetwork(
             id = NetworkId.VBN,
-            name = "VBN",
+            name = "Verkehrsverbund Bremen/Niedersachsen (VBN)",
             country = Country.Germany,
             continent = Continent.Europe,
             factory = {
@@ -172,7 +162,7 @@ object TransportNetworks {
         ),
         TransportNetwork(
             id = NetworkId.SH,
-            name = "nah.sh",
+            name = "Schleswig-Holstein (nah.sh)",
             country = Country.Germany,
             continent = Continent.Europe,
             factory = {
@@ -181,7 +171,7 @@ object TransportNetworks {
         ),
         TransportNetwork(
             id = NetworkId.AVV_AACHEN,
-            name = "AVV Aachen",
+            name = "Aachener Verkehrsverbund (AVV)",
             country = Country.Germany,
             continent = Continent.Europe,
             factory = {
@@ -190,126 +180,126 @@ object TransportNetworks {
         ),
         TransportNetwork(
             id = NetworkId.VGN,
-            name = "VGN",
+            name = "Verkehrsverbund Großraum Nürnberg (VGN)",
             country = Country.Germany,
             continent = Continent.Europe,
             factory = { VgnProvider() }
         ),
         TransportNetwork(
             id = NetworkId.VVM,
-            name = "VVM",
+            name = "Verkehrsverbund Mittelschwaben (VVM)",
             country = Country.Germany,
             continent = Continent.Europe,
             factory = { VvmProvider() }
         ),
         TransportNetwork(
             id = NetworkId.VMV,
-            name = "VMV",
+            name = "Verkehrsgesellschaft Mecklenburg-Vorpommern (VMV)",
             country = Country.Germany,
             continent = Continent.Europe,
             factory = { VmvProvider() }
         ),
         TransportNetwork(
             id = NetworkId.GVH,
-            name = "GVH",
+            name = "Großraum-Verkehr Hannover (GVH)",
             country = Country.Germany,
             continent = Continent.Europe,
             factory = { GvhProvider() }
         ),
         TransportNetwork(
             id = NetworkId.BSVAG,
-            name = "BSVAG",
+            name = "Braunschweiger Vekehrs-GmbH (BSVAG)",
             country = Country.Germany,
             continent = Continent.Europe,
             factory = { BsvagProvider() }
         ),
         TransportNetwork(
             id = NetworkId.VVO,
-            name = "VVO",
+            name = "Verkehrsverbund Oberelbe (VVO)",
             country = Country.Germany,
             continent = Continent.Europe,
             factory = { VvoProvider() }
         ),
         TransportNetwork(
             id = NetworkId.NASA,
-            name = "NASA",
+            name = "Nahverkehrsservice Sachsen-Anhalt (NASA)",
             country = Country.Germany,
             continent = Continent.Europe,
             factory = { NasaProvider("{\"aid\":\"nasa-apps\",\"type\":\"AID\"}") }
         ),
         TransportNetwork(
             id = NetworkId.VRR,
-            name = "VRR",
+            name = "Verkehrsverbund Rhein-Ruhr (VRR)",
             country = Country.Germany,
             continent = Continent.Europe,
             factory = { VrrProvider() }
         ),
         TransportNetwork(
             id = NetworkId.MVG,
-            name = "MVG",
+            name = "Münchner Verkehrsgesellschaft (MVG)",
             country = Country.Germany,
             continent = Continent.Europe,
             factory = { MvgProvider() }
         ),
         TransportNetwork(
             id = NetworkId.VRN,
-            name = "VRN",
+            name = "Verkehrsverbund Rhein-Neckar (VRN)",
             country = Country.Germany,
             continent = Continent.Europe,
             factory = { VrnProvider() }
         ),
         TransportNetwork(
             id = NetworkId.VVS,
-            name = "VVS Stuttgart",
+            name = "Verkehrs- und Tarifverbund Stuttgart (VVS)",
             country = Country.Germany,
             continent = Continent.Europe,
             factory = { VvsProvider("http://www2.vvs.de/oeffi/".toHttpUrlOrNull()) }
         ),
         TransportNetwork(
             id = NetworkId.DING,
-            name = "DING",
+            name = "Donau-Iller-Nahverkehrsverbund (DING)",
             country = Country.Germany,
             continent = Continent.Europe,
             factory = { DingProvider() }
         ),
         TransportNetwork(
             id = NetworkId.KVV,
-            name = "KVV Karlsruhe",
+            name = "Karlsruher Verkehrsverbünde (KVV)",
             country = Country.Germany,
             continent = Continent.Europe,
             factory = { KvvProvider("https://projekte.kvv-efa.de/oeffi/".toHttpUrlOrNull()) }
         ),
         TransportNetwork(
             id = NetworkId.NVBW,
-            name = "NVBW",
+            name = "Nahverkehrsgesellschaft Baden-Württemberg (NVBW)",
             country = Country.Germany,
             continent = Continent.Europe,
             factory = { NvbwProvider() }
         ),
         TransportNetwork(
             id = NetworkId.VVV,
-            name = "VVV",
+            name = "Verkehrsverbund Vogtland (VVV)",
             country = Country.Germany,
             continent = Continent.Europe,
             factory = { VvvProvider() }
         ),
         TransportNetwork(
             id = NetworkId.VRS,
-            name = "VRS",
+            name = "Verkehrsverbund Rhein-Sieg (VRS)",
             country = Country.Germany,
             continent = Continent.Europe,
             factory = { VrsProvider(VRS_CLIENT_CERTIFICATE) }
         ),
         TransportNetwork(
             id = NetworkId.VMT,
-            name = "VMT",
+            name = "Verkehrsverbund Mittelthüringen (VMT)",
             country = Country.Germany,
             continent = Continent.Europe,
             factory = { VmtProvider("{\"aid\":\"vj5d7i3g9m5d7e3\",\"type\":\"AID\"}") }
         ),
         TransportNetwork(
             id = NetworkId.OEBB,
-            name = "OEBB",
+            name = "Österreichische Bundesbahnen (ÖBB)",
             country = Country.Austria,
             continent = Continent.Europe,
             factory = {
@@ -327,7 +317,7 @@ object TransportNetworks {
         ),
         TransportNetwork(
             id = NetworkId.VVT,
-            name = "VVT",
+            name = "Verkehrsverbund Tirol (VVT)",
             country = Country.Austria,
             continent = Continent.Europe,
             factory = {
@@ -354,7 +344,7 @@ object TransportNetworks {
         ),
         TransportNetwork(
             id = NetworkId.VBL,
-            name = "VBL",
+            name = "Verkehrsbetriebe Luzern (VBL)",
             country = Country.Switzerland,
             continent = Continent.Europe,
             factory = {
@@ -363,7 +353,7 @@ object TransportNetworks {
         ),
         TransportNetwork(
             id = NetworkId.ZVV,
-            name = "ZVV",
+            name = "Zürcher Verkehrsverbund (ZVV)",
             country = Country.Switzerland,
             continent = Continent.Europe,
             factory = {
@@ -381,7 +371,7 @@ object TransportNetworks {
         ),
         TransportNetwork(
             id = NetworkId.NS,
-            name = "NS",
+            name = "Nederlandse Spoorwegen (NS)",
             country = Country.Netherlands,
             continent = Continent.Europe,
             factory = {
