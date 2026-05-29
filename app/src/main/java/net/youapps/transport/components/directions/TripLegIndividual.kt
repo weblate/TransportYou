@@ -1,5 +1,6 @@
 package net.youapps.transport.components.directions
 
+import android.util.Log
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -25,10 +26,14 @@ private const val MINIMUM_CHANGE_INTERVAL_MINUTES = 3
 fun TripLegIndividual(
     leg: TripLeg.Individual,
 ) {
-    val isChangePossible = leg.durationMillis > 0
+    val durationMillis = leg.durationMillis
+    // in case there's no time information available, we display the transfer as possible
+    // because we don't have any info that speaks against it
+    val isChangePossible = durationMillis == null || durationMillis > 0
     val isChangeShort =
-        isChangePossible && (leg.durationMillis < MINIMUM_CHANGE_INTERVAL_MINUTES * 1000 || leg.durationMillis < (leg.approxDurationMillis
-            ?: 0))
+        isChangePossible && durationMillis != null &&
+                (durationMillis < MINIMUM_CHANGE_INTERVAL_MINUTES * 1000 ||
+                        durationMillis < (leg.approxDurationMillis ?: 0))
     val changeColor =
         if (isChangePossible && !isChangeShort) MaterialTheme.colorScheme.onBackground else MaterialTheme.colorScheme.error
 
@@ -54,7 +59,7 @@ fun TripLegIndividual(
                 if (isChangePossible) stringResource(individualNames[leg.type]!!)
                 else stringResource(R.string.transfer_impossible)
             Text(
-                text = changeText + leg.approxDurationMillis?.takeIf { isChangePossible }?.let {
+                text = changeText + durationMillis?.takeIf { isChangePossible }?.let {
                     " (${TextUtils.prettifyDurationLongText(it)})"
                 }
                     .orEmpty(),
