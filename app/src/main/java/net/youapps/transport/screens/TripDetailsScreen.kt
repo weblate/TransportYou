@@ -231,6 +231,9 @@ fun TripDetailsScreen(
             trip.legs.forEachIndexed { index, leg ->
                 val isPublic = leg is TripLeg.Public
 
+                // each line must have at least two points
+                if (leg.path.orEmpty().size < 2) return@forEachIndexed
+
                 val tripSectionsPublicSource = rememberGeoJsonSource(
                     data = GeoJsonData.Features(featureCollection {
                         feature(
