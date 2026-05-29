@@ -16,7 +16,7 @@ data class Trip(
     val firstDepartureTime get() = firstPublicLeg?.departure?.departureTime?.predictedOrPlanned
     val lastArrivalTime get() = lastPublicLeg?.arrival?.arrivalTime?.predictedOrPlanned
 
-    val numChanges get() = legs.filter { it is TripLeg.Public }.size - 1
+    val numChanges get() = legs.filterIsInstance<TripLeg.Public>().size - 1
 }
 
 enum class IndividualType {
@@ -54,8 +54,10 @@ sealed class TripLeg {
     val firstPredictedDepartureTime: ZonedDateTime?
         get() = departure.departureTime.predicted
 
-    val durationMillis: Long get() = ChronoUnit.MILLIS.between(
-        departure.departureTime.predictedOrPlanned,
-        arrival.arrivalTime.predictedOrPlanned,
-    )
+    val durationMillis: Long? get() = runCatching {
+        ChronoUnit.MILLIS.between(
+            departure.departureTime.predictedOrPlanned,
+            arrival.arrivalTime.predictedOrPlanned,
+        )
+    }.getOrNull()
 }

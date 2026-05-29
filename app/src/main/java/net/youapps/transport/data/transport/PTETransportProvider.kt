@@ -120,7 +120,6 @@ class PTETransportProvider(private val network: NetworkProvider) : TransportProv
                 true
             )
         }
-        Log.e("resp", response.trips.toString())
         val trips = response.trips.orEmpty().map { trip ->
             val legs = trip.legs.map { it.toTripLeg() }.toMutableList()
             fillWithAndFixTransferLegs(legs)
@@ -183,13 +182,22 @@ class PTETransportProvider(private val network: NetworkProvider) : TransportProv
             val nextLeg = legs.getOrNull(i + 1)
 
             if (leg is TripLeg.Public && nextLeg is TripLeg.Public) {
-                legs.add(
-                    i + 1, TripLeg.Individual(
-                        departure = leg.arrival,
-                        arrival = nextLeg.departure,
-                        type = IndividualType.TRANSFER
-                    )
+                val newLeg = TripLeg.Individual(
+                    // we have to ensure that departures always have a departure time
+                    // and arrivals always have an arrival time
+                    // hence, we copy the departure time into the arrival time or vice-versa if needed
+                    departure = leg.arrival.copy(
+                        departureTime = leg.arrival.arrivalTime.takeIf { it.predictedOrPlanned != null }
+                            ?: leg.arrival.departureTime
+                    ),
+                    arrival = nextLeg.departure.copy(
+                        arrivalTime = nextLeg.departure.departureTime.takeIf { it.predictedOrPlanned != null }
+                            ?: nextLeg.departure.arrivalTime
+                    ),
+                    type = IndividualType.TRANSFER
                 )
+
+                legs.add(i + 1, newLeg)
                 i++
             } else if (leg is TripLeg.Individual) {
                 // calculate approximated duration of this transfer (= end - start)
