@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <appwidget-provider xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:initialLayout="@layout/glance_default_loading_layout"
-    android:widgetFeatures="reconfigurable"
     android:configure="net.youapps.transport.widget.DeparturesWidgetConfigureActivity"
-    android:updatePeriodMillis="1800000"
+    android:description="@string/view_departures"
+    android:initialLayout="@layout/glance_default_loading_layout"
     android:minWidth="240dp"
     android:minHeight="100dp"
-    tools:targetApi="28">
-</appwidget-provider>
+    android:resizeMode="horizontal|vertical"
+    android:updatePeriodMillis="1800000"
+    android:widgetFeatures="reconfigurable"
+    tools:targetApi="28" />
