@@ -45,4 +45,5 @@
     <string name="product_cablecar">تلفريك</string>
     <string name="product_ferry">عبَّارة</string>
     <string name="product_on_demand">سيارة عند الطلب</string>
+    <string name="international">دولي</string>
 </resources>
