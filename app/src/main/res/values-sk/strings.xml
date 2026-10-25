@@ -45,4 +45,5 @@
     <string name="drive">Autom</string>
     <string name="check_in">Nástup</string>
     <string name="check_out">Výstup</string>
+    <string name="international">Medzinárodné</string>
 </resources>
