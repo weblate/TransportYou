@@ -45,4 +45,5 @@
     <string name="drive">驾车</string>
     <string name="check_in">签到</string>
     <string name="check_out">签退</string>
+    <string name="international">国际</string>
 </resources>
