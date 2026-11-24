@@ -41,8 +41,8 @@
     <string name="product_ferry">Ferry</string>
     <string name="transport_lines">Líneas de transporte</string>
     <string name="bike">Bici</string>
-    <string name="check_in">Verificar</string>
-    <string name="check_out">Verificar</string>
+    <string name="check_in">Registrar entrada</string>
+    <string name="check_out">Pagar salida</string>
     <string name="walk">Caminar</string>
     <string name="drive">Conducir</string>
     <string name="international">Internacional</string>
